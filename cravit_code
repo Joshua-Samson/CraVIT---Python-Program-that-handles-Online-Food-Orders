@@ -1,0 +1,349 @@
+#------------------------------------------------CraVIT-------------------------------------------------
+
+#Connecting to SQL server and importing modules
+import mysql.connector
+from tabulate import tabulate
+import random
+db=mysql.connector.connect(host = "localhost",user = "root",password = "root123",charset="utf8")
+mydb= db.cursor()
+
+#Creating database
+mydb.execute("create database CraVIT")
+
+#Creating tables in SQL
+mydb.execute("use CraVIT")
+mydb.execute(" create table CUSTOMERS (customer_name VARCHAR(50) PRIMARY KEY,password VARCHAR(50))")
+db.commit()
+mydb.execute("create table orders (order_id int,username varchar(50),item_name varchar(100),veg_nonveg varchar(20),price decimal(10,2),restaurant_name varchar(100),order_time timestamp default current_timestamp)")
+db.commit()
+
+
+#TABLES
+
+#Creating menu
+mydb.execute("drop table the_street_bites")
+
+def create_menu():
+    mydb.execute("create table the_street_bites(S_No int(10), Item varchar(80), Veg_or_NonVeg varchar(10),Type varchar(50), Price float(10))")
+#Creating table for Street Bites
+def the_street_bites():
+    mydb.execute("insert into the_street_bites values (1, 'Aloo Tikka Grill', 'Veg', 'Sandwich', 99)")
+    mydb.execute("insert into the_street_bites values (2, 'Peri Peri Aloo Grill', 'Veg', 'Sandwich', 109)")
+    mydb.execute("insert into the_street_bites values (3, 'Veg Cheese Grill', 'Veg', 'Sandwich', 109)")
+    mydb.execute("insert into the_street_bites values (4, 'Mayo Paneer Grill', 'Veg', 'Sandwich', 129)")
+    mydb.execute("insert into the_street_bites values (5, 'Paneer Tikka Grill', 'Veg', 'Sandwich', 139)")
+    mydb.execute("insert into the_street_bites values (6, 'Cheesy Paneer Grill', 'Veg', 'Sandwich', 139)")
+    mydb.execute("insert into the_street_bites values (7, 'Peri Peri Paneer Grill', 'Veg', 'Sandwich', 139)")
+    mydb.execute("insert into the_street_bites values (8, 'Smoky BBQ Paneer Grill', 'Veg', 'Sandwich', 139)")
+    mydb.execute("insert into the_street_bites values (9, 'Chicken Mayo Grill', 'Non-Veg', 'Sandwich', 129)")
+    mydb.execute("insert into the_street_bites values (10, 'Chicken Cheese Grill', 'Non-Veg', 'Sandwich', 139)")
+    mydb.execute("insert into the_street_bites values (11, 'Chicken Tikka Grill', 'Non-Veg', 'Sandwich', 139)")
+    mydb.execute("insert into the_street_bites values (12, 'Peri Peri Chicken Grill', 'Non-Veg', 'Sandwich', 139)")
+    mydb.execute("insert into the_street_bites values (13, 'Smoky BBQ Chicken Grill', 'Non-Veg', 'Sandwich', 139)")
+    mydb.execute("insert into the_street_bites values (14, 'Classic Veg Cheese', 'Veg', 'Burger', 139)")
+    mydb.execute("insert into the_street_bites values (15, 'Herb Chilli Aloo Tikki Cheese', 'Veg', 'Burger', 149)")
+    mydb.execute("insert into the_street_bites values (16, 'Double-Decker Veg Cheese', 'Veg', 'Burger', 169)")
+    mydb.execute("insert into the_street_bites values (17, 'Supreme Paneer Cheese', 'Veg', 'Burger', 169)")
+    mydb.execute("insert into the_street_bites values (18, 'Tandoori Paneer Cheese', 'Veg', 'Burger', 179)")
+    mydb.execute("insert into the_street_bites values (19, 'Smoky Paneer Cheese', 'Veg', 'Burger', 179)")
+    mydb.execute("insert into the_street_bites values (20, 'Classic Chicken Cheese', 'Non-Veg', 'Burger', 159)")
+    mydb.execute("insert into the_street_bites values (21, 'Chicken Tikka Cheese', 'Non-Veg', 'Burger', 169)")
+    mydb.execute("insert into the_street_bites values (22, 'Peri Peri Chicken Cheese', 'Non-Veg', 'Burger', 169)")
+    mydb.execute("insert into the_street_bites values (23, 'Smoky BBQ Chicken Cheese', 'Non-Veg', 'Burger', 169)")
+    mydb.execute("insert into the_street_bites values (24, 'Double-Decker Chicken Cheese', 'Non-Veg', 'Burger', 199)")
+    mydb.execute("insert into the_street_bites values (25, 'American Fried Chicken', 'Non-Veg', 'Burger', 179)")
+    mydb.execute("insert into the_street_bites values (26, 'Ultimate Paneer Sub', 'Veg', 'Hot Dogs and Subs', 229)")
+    mydb.execute("insert into the_street_bites values (27, 'Tandoori Chicken Sub', 'Non-Veg', 'Hot Dogs and Subs', 219)")
+    mydb.execute("insert into the_street_bites values (28, 'American Hot Dog', 'Non-Veg', 'Hot Dogs and Subs', 209)")
+    mydb.execute("insert into the_street_bites values (29, 'Classic French Fries', 'Veg', 'Fries and Sides', 89)")
+    mydb.execute("insert into the_street_bites values (30, 'Cheesy French Fries', 'Veg', 'Fries and Sides', 109)")
+    mydb.execute("insert into the_street_bites values (31, 'Peri Peri French Fries', 'Veg', 'Fries and Sides', 109)")
+    mydb.execute("insert into the_street_bites values (32, 'Tandoori French Fries', 'Veg', 'Fries and Sides', 109)")
+    mydb.execute("insert into the_street_bites values (33, 'Barbecue French Fries', 'Veg', 'Fries and Sides', 109)")
+    mydb.execute("insert into the_street_bites values (34, 'Veg Cheese Nuggets', 'Veg', 'Fries and Sides', 109)")
+    mydb.execute("insert into the_street_bites values (35, 'Chicken Nuggets', 'Non-Veg', 'Fries and Sides', 129)")
+    mydb.execute("insert into the_street_bites values (36, 'Chicken Garlic Fingers', 'Non-Veg', 'Fries and Sides', 139)")
+    mydb.execute("insert into the_street_bites values (37, 'Special Chicken Loaded Fries', 'Non-Veg', 'Fries and Sides', 159)")
+    mydb.execute("insert into the_street_bites values (38, 'Crispy Chicken Wings', 'Non-Veg', 'Broasted Fried Chicken', 149)")
+    mydb.execute("insert into the_street_bites values (39, 'Crispy Boneless Strips', 'Non-Veg', 'Broasted Fried Chicken', 159)")
+    mydb.execute("insert into the_street_bites values (40, 'Crispy Chicken Popcorn', 'Non-Veg', 'Broasted Fried Chicken', 139)")
+    mydb.execute("insert into the_street_bites values (41, 'Cheese Corn', 'Veg', 'Pan Fried Momos', 129)")
+    mydb.execute("insert into the_street_bites values (42, 'Paneer Tikka', 'Veg', 'Pan Fried Momos', 139)")
+    mydb.execute("insert into the_street_bites values (43, 'Chicken Tikka', 'Non-Veg', 'Pan Fried Momos', 139)")
+    mydb.execute("insert into the_street_bites values (44, 'Peri Peri Paneer', 'Veg', 'Pan Fried Momos', 139)")
+    mydb.execute("insert into the_street_bites values (45, 'Peri Peri Chicken', 'Non-Veg', 'Pan Fried Momos', 139)")
+    mydb.execute("insert into the_street_bites values (46, 'Extra Mayo', 'Veg', 'Extras', 20)")
+    mydb.execute("insert into the_street_bites values (47, 'Extra Cheese', 'Veg', 'Extras', 20)")
+    mydb.execute("insert into the_street_bites values (48, 'Shawarma Roll', 'Non-Veg', 'Shawarma', 129)")
+    mydb.execute("insert into the_street_bites values (49, 'Shawarma Plate', 'Non-Veg', 'Shawarma', 169)")
+    mydb.execute("insert into the_street_bites values (50, 'Mexican Shawarma Roll', 'Non-Veg', 'Shawarma', 139)")
+    mydb.execute("insert into the_street_bites values (51, 'Mexican Shawarma Plate', 'Non-Veg', 'Shawarma', 179)")
+    mydb.execute("insert into the_street_bites values (52, 'Special Shawarma Roll', 'Non-Veg', 'Shawarma', 159)")
+    mydb.execute("insert into the_street_bites values (53, 'Special Shawarma Plate', 'Non-Veg', 'Shawarma', 189)")
+    mydb.execute("insert into the_street_bites values (54, 'MX Special Shawarma Roll', 'Non-Veg', 'Shawarma', 169)")
+    mydb.execute("insert into the_street_bites values (55, 'MX Special Shawarma Plate', 'Non-Veg', 'Shawarma', 199)")
+    mydb.execute("insert into the_street_bites values (56, 'Extra Kuboos', 'Veg', 'Shawarma', 10)")
+    mydb.execute("insert into the_street_bites values (57, 'Veg Spicy Arrabbiata Pasta', 'Veg', 'Pasta', 169)")
+    mydb.execute("insert into the_street_bites values (58, 'Veg Cream Cheese Pasta', 'Veg', 'Pasta', 179)")
+    mydb.execute("insert into the_street_bites values (59, 'Chicken Spicy Arrabbiata Pasta', 'Non-Veg', 'Pasta', 199)")
+    mydb.execute("insert into the_street_bites values (60, 'Chicken Cream Cheese Pasta', 'Non-Veg', 'Pasta', 209)")
+    mydb.execute("insert into the_street_bites values (61, 'Blue Curacao', 'Veg', 'Mojitos', 89)")
+    mydb.execute("insert into the_street_bites values (62, 'Virgin', 'Veg', 'Mojitos', 89)")
+    mydb.execute("insert into the_street_bites values (63, 'Green Apple', 'Veg', 'Mojitos', 89)")
+    mydb.execute("insert into the_street_bites values (64, 'Lemon Iced Tea', 'Veg', 'Iced Tea & Cold Coffee', 109)")
+    mydb.execute("insert into the_street_bites values (65, 'Peach Iced Tea', 'Veg', 'Iced Tea & Cold Coffee', 109)")
+    mydb.execute("insert into the_street_bites values (66, 'Raspberry Iced Tea', 'Veg', 'Iced Tea & Cold Coffee', 109)")
+    mydb.execute("insert into the_street_bites values (67, 'Classic Cold Coffee', 'Veg', 'Iced Tea & Cold Coffee', 119)")
+    mydb.execute("insert into the_street_bites values (68, 'Coffee Mocha', 'Veg', 'Iced Tea & Cold Coffee', 129)")
+    mydb.execute("insert into the_street_bites values (69, 'Irish Cold Coffee', 'Veg', 'Iced Tea & Cold Coffee', 129)")
+    mydb.execute("insert into the_street_bites values (70, 'Mango Fusion', 'Veg', 'Milkshakes', 99)")
+    mydb.execute("insert into the_street_bites values (71, 'Berry Blast', 'Veg', 'Milkshakes', 99)")
+    mydb.execute("insert into the_street_bites values (72, 'Black Currant', 'Veg', 'Milkshakes', 99)")
+    mydb.execute("insert into the_street_bites values (73, 'Strawberry', 'Veg', 'Milkshakes', 99)")
+    mydb.execute("insert into the_street_bites values (74, 'Oreo Crunch', 'Veg', 'Milkshakes', 109)")
+    mydb.execute("insert into the_street_bites values (75, 'Bourbon Crunch', 'Veg', 'Milkshakes', 109)")
+    mydb.execute("insert into the_street_bites values (76, 'Belgian Chocolate', 'Veg', 'Milkshakes', 109)")
+    mydb.execute("insert into the_street_bites values (77, 'Blueberry', 'Veg', 'Milkshakes', 109)")
+    mydb.execute("insert into the_street_bites values (78, 'Butterscotch', 'Veg', 'Milkshakes', 109)")
+    mydb.execute("insert into the_street_bites values (79, 'Strawberry', 'Veg', 'Milkshakes', 119)")
+    mydb.execute("insert into the_street_bites values (80, 'Burger Combo 1 (14 + 29 + 250 ml Pepsi)', 'Veg', 'Burger Combos', 229)")
+    mydb.execute("insert into the_street_bites values (81, 'Burger Combo 2 (20 + 29 + 250 ml Pepsi)', 'Non-Veg', 'Burger Combos', 259)")
+    mydb.execute("insert into the_street_bites values (82, 'Burger Combo 3 (17 + 29 + 250 ml Pepsi)', 'Veg', 'Burger Combos', 269)")
+    mydb.execute("insert into the_street_bites values (83, 'Burger Combo 4 (20 + 38 + 250 ml Pepsi)', 'Non-Veg', 'Burger Combos', 319)")
+    mydb.execute("insert into the_street_bites values (84, 'Sandwich Combo 1 (3 + 29 + 250 ml Pepsi)', 'Veg', 'Sandwich Combos', 199)")
+    mydb.execute("insert into the_street_bites values (85, 'Sandwich Combo 2 (4 + 29 + 250 ml Pepsi)', 'Veg', 'Sandwich Combos', 229)")
+    mydb.execute("insert into the_street_bites values (86, 'Sandwich Combo 3 (9 + 29 + 250 ml Pepsi)', 'Non-Veg', 'Sandwich Combos', 229)")
+    mydb.execute("insert into the_street_bites values (87, 'Sandwich Combo 4 (9 + 38 + 250 ml Pepsi)', 'Non-Veg', 'Sandwich Combos', 289)")
+    db.commit()
+#creating the tables
+create_menu()
+the_street_bites()
+
+restaurant1={1:"the_street_bites"}
+customer_order = []
+#Displaying Cuisines
+def restaurant(restaurant1):
+    print("\n\n-----RESTAURANTS-----")
+    for i in restaurant1:
+        print(i,((restaurant1[i]).replace("_"," ").title()))
+def menu(menu1,option):
+    mydb.execute(f"select * from {option}")
+    data=mydb.fetchall()
+    headers = ["ItemNo.", "Name", "Veg/NonVeg","Type","Price"]
+    if not menu1:
+        for i in data:
+            menu1[i[0]]=i[1:]
+    print(tabulate(data, headers=headers, tablefmt="grid"))
+
+#Adding items to cart
+def cart(menu1, option):
+    if not menu1:
+        print("\nPlease view the menu (Option 1) before adding items to your cart!")
+        return
+
+    while True:
+        try:
+            choice = int(input("\nEnter the Item No to add to cart: "))
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+            continue
+        
+        if choice not in menu1:
+            print("Invalid choice number. Try again.")
+            continue
+        
+        item_details = menu1[choice]
+        selected_item = (choice, item_details[0], item_details[1], item_details[2], item_details[3])
+        
+        customer_order.append(selected_item)
+        print(f"Added '{selected_item[1]}' to your cart successfully!")
+        
+        cont = input("\nEnter 'Y' to add more items or any other key to return: ").strip().lower()
+        if cont != 'y':
+            break
+
+#Showing items in cart
+def show_cart():
+    if not customer_order:
+        print("\nYour cart is empty.")
+        return
+
+    cart_display = []
+    for index, item in enumerate(customer_order, start=1):
+        cart_display.append((index, item[1], item[2], item[3], item[4]))
+
+    header = ["S No", "Item", "Veg/NonVeg","Type","Price"]
+    print("\n----- Your Cart -----")
+    print(tabulate(cart_display, headers=header, tablefmt='grid', numalign="right", stralign="left"))
+    total = sum(item[4] for item in customer_order)
+    print(f"\nTotal Price: ₹{total}")
+
+#Removing items from cart
+def remove_from_cart():
+    if not customer_order:
+        print("\nYour cart is empty. Nothing to remove.")
+        return
+    show_cart()
+    try:
+        item_no = int(input("\nEnter the item number to remove: "))
+        if 1 <= item_no <= len(customer_order):
+            removed_item = customer_order.pop(item_no - 1)
+            print(f"Removed {removed_item[1]} from your cart.")
+        else:
+            print(f"S No. {item_no} is not valid.")
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+
+#Delivery time
+def delivery_time():
+    delivery_time = random.randint(25, 90)
+    print(f"\n\tEstimated Delivery Time: {delivery_time} minutes")
+
+#View past orders
+def save_order_to_db(username, restaurant_name):
+    if not customer_order:
+        print("\nYour cart is empty. Nothing to save.")
+        return
+    try:
+#Updated Code 1: Provides token number and puts a limit for number of online orders per day
+        mydb.execute("SELECT max(order_id) FROM orders WHERE DATE(order_time) = CURDATE()")
+        row=mydb.fetchone()
+        daily_count=row[0]+1 if (row is not None and row[0] is not None) else 1
+        if daily_count>100:
+            print("Order Rejected! The system has reached its daily limit of 100 orders.")
+            print("Please try again tomorrow!")
+            customer_order.clear()
+            return False
+        else:
+            for item in customer_order:
+                order_no=daily_count
+                mydb.execute("""INSERT INTO orders (order_id,username,item_name,veg_nonveg,price,restaurant_name)
+                VALUES (%s, %s, %s, %s, %s, %s)""", (order_no, username, item[1], item[2], item[4],restaurant_name))
+            db.commit()
+            print("\n Order saved successfully to database!")
+            print("Order Number:",order_no)
+    except mysql.connector.Error as err:
+        print(f"Database error while saving order: {err}")
+        
+def past_orders(username):
+    try:
+        mydb.execute("SELECT order_id, item_name, veg_nonveg, price, restaurant_name, order_time FROM orders WHERE username = %s ORDER BY order_time DESC", (username,))
+        orders = mydb.fetchall()
+        if not orders:
+            print("\nNo past orders found for this user.")
+            return
+
+        header = ["OrderNo","Item", "Veg/NonVeg", "Price", "Restaurant", "Order Time"]
+        print(f"\n--- Past Orders for {username} ---")
+        print(tabulate(orders, headers=header, tablefmt='grid', numalign="right", stralign="left"))
+    except mysql.connector.Error as err:
+        print(f"Database error while fetching orders: {err}")
+
+
+#LOGIN
+        
+#Registering user function
+def register():
+    print("----- Register New User -----")
+
+    while True:
+        username = input("Enter a new username: ")
+        mydb.execute("select * from customers where customer_name=%s", (username,))
+        if mydb.fetchone():
+            print("Username already exists. Try a different one.")
+        else:
+            break
+    password = input("Enter a new password: ")
+    mydb.execute("insert into customers (customer_name, password) VALUES (%s, %s)", (username, password))
+    db.commit()
+    print(f"Registration successful! You can now log in as {username}.\n")
+
+#User login function
+def login():
+    print("\nWelcome to CraVIT!")
+    print("Please log in to continue\n")
+    while True:
+        username = input("Enter Username: ")
+        password = input("Enter Password: ")
+        mydb.execute("select * from customers where customer_name=%s AND password=%s", (username, password))
+        user = mydb.fetchone()
+        if user:
+            print(f"\nLogin Successful!\n Welcome, {username}.\n")
+            while True:
+                print(f"\n=======HOME PAGE ({username}) =======")
+                print("Select where would you like to eat:")
+                restaurant(restaurant1)
+                try:
+                    choice_rest=int(input("Enter choice:"))
+                    if abs(choice_rest)<=len(restaurant1):
+                        menu1={}
+                        while True:
+                            print(f"\n======={(restaurant1[choice_rest].replace("_"," ")).title()} PAGE=======")
+                            print("1. View Menu")
+                            print("2. Add to Cart")
+                            print("3. Remove Item from Cart")
+                            print("4. Show Cart")
+                            print("5. View Past Orders")
+                            print("6. Checkout")
+                            choice=input("Enter your choice: ")
+                            option=restaurant1[choice_rest]
+                            if choice == '1':
+                                menu(menu1,option)
+                            elif choice=='2':
+                                menu(menu1,option)
+                                cart(menu1,option)
+                            elif choice == '3':
+                                remove_from_cart()
+                            elif choice == '4':
+                                show_cart()
+                            elif choice == '5':
+                                past_orders(username)
+                            elif choice == '6':
+                                if customer_order:
+                                    ord_no=save_order_to_db(username,option)
+                                    if ord_no!=False:
+                                        show_cart()
+                                        delivery_time()
+                                        print("\nThank you for ordering!")
+                                        exit()
+                            else:
+                                print("Invalid choice, try again.")
+                    else:
+                        print("Choice not present in restaurant page.")
+                except ValueError:
+                    print("Invalid choice...Please try again")
+
+        else:
+            print("Invalid Username or Password, please try again.")
+            retry = input("Enter 'R' to retry or 'Q' to quit: ").upper()
+            if retry == 'Q':
+                print("Exiting program. Goodbye!")
+                exit()
+
+#HOME PAGE
+def home_page():
+    while True:
+        print("---------------------------------------------------------------------------------------------------------")
+        print("-------------------------------------------------CraVIT--------------------------------------------------")
+        print("---------------------------------------------------------------------------------------------------------")
+        print()
+        print(" HOME PAGE ")
+        print("1. Login")
+        print("2. Register")
+        print("3. Exit")
+        choice = input("Enter your choice: ")
+        if choice == '1':
+            login()
+        elif choice == '2':
+            register()
+        elif choice=='3' :
+            c = input("Press y to confirm exit: ")
+            if c.lower() == 'y':
+                print("Exiting program. Goodbye!")
+                break
+            else:
+                print("Exit canceled. Please continue.\n")
+        else:
+            print("Invalid choice. Please try again.\n")
+home_page()
+mydb.close()
